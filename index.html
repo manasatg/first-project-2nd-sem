@@ -200,36 +200,46 @@ I’m actively looking for internship opportunities and real-world projects wher
   © 2026 Manasa tg | All Rights Reserved
 </footer>
 <!-- Firebase Libraries -->
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
+  import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-database.js";
 
-<script>
-const firebaseConfig = {
-  apiKey: "AIzaSyBdLgwD3r_oa9UbgkC4LwLu70RpjQtQcvg",
-  authDomain: "portfolio-b63e8.firebaseapp.com",
-  databaseURL: "https://portfolio-b63e8-default-rtdb.firebaseio.com",
-  projectId: "portfolio-b63e8"
-};
+  const firebaseConfig = {
+    apiKey: "AIzaSyC6vxLrLxfR3pmoWpA-qncx7uckcWiUhkU",
+    authDomain: "manasa-fb1d4.firebaseapp.com",
+    databaseURL: "https://manasa-fb1d4-default-rtdb.firebaseio.com",
+    projectId: "manasa-fb1d4",
+    storageBucket: "manasa-fb1d4.firebasestorage.app",
+    messagingSenderId: "463341384927",
+    appId: "1:463341384927:web:b50fcb2683394e8e15256a",
+    measurementId: "G-Y9M9PMWKM1"
+  };
 
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig);
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
 
-// Form Submit
-document.getElementById("contactForm").addEventListener("submit", function(e) {
-  e.preventDefault();
+  // Form Submit Logic
+  const form = document.getElementById("contactForm");
 
-  const name = document.getElementById("name").value;
-  const email = document.getElementById("email").value;
-  const message = document.getElementById("message").value;
+  form.addEventListener("submit", function(e){
+    e.preventDefault();
 
-  firebase.database().ref("messages").push({
-    name: name,
-    email: email,
-    message: message
+    const name = document.getElementById("name").value;
+    const email = document.getElementById("email").value;
+    const message = document.getElementById("message").value;
+
+    // Push data to Firebase
+    push(ref(db, "messages"), {
+      name: name,
+      email: email,
+      message: message
+    });
+
+    alert("Message sent successfully 🚀");
+
+    form.reset();
   });
-
-  alert("Message Sent Successfully!");
-});
 </script>
 
 </script>
